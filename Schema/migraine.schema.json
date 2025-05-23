@@ -763,31 +763,127 @@
                         "type": "integer"
                     },
                     "priority": {
-                        "description": "The order that actions with the same tick value execute. Higher values go first. If omitted, defaults to 0. If multiple actions with the same tick have the same priority, they will be executed in an arbitrary order"
+                        "description": "The order that actions with the same tick value execute. Higher values go first. If omitted, defaults to 0. If multiple actions with the same tick have the same priority, they will be executed in an arbitrary order",
+                        "type": "integer"
                     },
                     "action": {
                         "description": "The object containing the information to execute. No matter the action, \"type\" is required, and it defines what this action does",
                         "type": "object",
                         "oneOf": [
-                            { "$ref": "#/definitions/setBlock" },
-                            { "$ref": "#/definitions/placeBlock" },
-                            { "$ref": "#/definitions/fillBlocks" },
-                            { "$ref": "#/definitions/modifyTileEntity" },
-                            { "$ref": "#/definitions/setCamera" },
-                            { "$ref": "#/definitions/addCamera" },
-                            { "$ref": "#/definitions/setCenter" },
-                            { "$ref": "#/definitions/addCenter" },
-                            { "$ref": "#/definitions/rotateTo" },
-                            { "$ref": "#/definitions/zoomTo" },
-                            { "$ref": "#/definitions/moveCenterTo" },
-                            { "$ref": "#/definitions/display" },
-                            { "$ref": "#/definitions/setTileEntityNBT" },
-                            { "$ref": "#/definitions/modifyTileEntityNBT" },
-                            { "$ref": "#/definitions/spawnEntity" },
-                            { "$ref": "#/definitions/setEntityNBT" },
-                            { "$ref": "#/definitions/setEntityTarget" },
-                            { "$ref": "#/definitions/modifyEntity" },
-                            { "$ref": "#/definitions/removeEntityTasks" }
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "setBlock" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/setBlock" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "placeBlock" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/placeBlock" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "fillBlocks" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/fillBlocks" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "modifyTileEntity" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/modifyTileEntity" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "setCamera" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/setCamera" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "addCamera" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/addCamera" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "setCenter" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/setCenter" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "addCenter" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/addCenter" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "rotateTo" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/rotateTo" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "zoomTo" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/zoomTo" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "moveCenterTo" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/moveCenterTo" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "display" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/display" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "setTileEntityNBT" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/setTileEntityNBT" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "modifyTileEntityNBT" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/modifyTileEntityNBT" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "spawnEntity" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/spawnEntity" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "setEntityNBT" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/setEntityNBT" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "setEntityTarget" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/setEntityTarget" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "modifyEntity" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/modifyEntity" }]
+                            },
+                            {
+                                "type": "object",
+                                "properties": { "type": { "const": "removeEntityTasks" } },
+                                "required": ["type"],
+                                "allOf": [{ "$ref": "#/definitions/removeEntityTasks" }]
+                            }
                         ]
                     }
                 },
