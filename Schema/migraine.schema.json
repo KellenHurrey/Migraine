@@ -791,6 +791,7 @@
                         ]
                     }
                 },
+                "required": ["action"],
                 "oneOf": [
                     { "required": ["tick"] },
                     { "required": ["tickStart", "tickEnd"] }
