@@ -1,1 +1,123 @@
-{}
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://raw.githubusercontent.com/KellenHurrey/Migraine/refs/heads/main/Schema/migraine.schema.json",
+    "title": "Migraine",
+    "description": "A migraine world descriptor",
+    "type": "object",
+    "properties": {
+        "owner": {
+            "description": "The item/block that this migraine belongs to",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "The id of the item or block",
+                    "type": "string"
+                },
+                "meta": {
+                    "description": "The damage/meta of the block/item",
+                    "type": "integer"
+                },
+                "text": {
+                    "description": "An optional display name of the migraine. If omited, it will just use the item's name",
+                    "type": "string"
+                },
+                "localized": {
+                    "description": "If the alt text is a localization key",
+                    "type": "boolean"
+                }
+            },
+            "required": ["id"],
+            "if": {
+                "required": ["localized"]
+            },
+            "then": {
+                "required": ["text"]
+            }
+        },
+        "seeAlso": {
+            "description": "The migraines that are recomended",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                    "description": "The id of the item or block",
+                    "type": "string"
+                },
+                "meta": {
+                    "description": "The damage/meta of the block/item",
+                    "type": "integer"
+                },
+                "text": {
+                    "description": "An optional display name of the seeAlso. If omited, it will just use the item's name",
+                    "type": "string"
+                },
+                "localized": {
+                    "description": "If the alt text is a localization key",
+                    "type": "boolean"
+                }
+                },
+                "required": ["id"],
+                "if": {
+                    "required": ["localized"]
+                },
+                "then": {
+                    "required": ["text"]
+                }
+            },
+            "minItems": 0
+        },
+        "chapters": {
+            "description": "The tick numbers that the chapter bar will be shown at, with the last value signifying the last tick of the migraine",
+            "type": "array",
+            "items": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+            },
+            "minItems": 1
+        },
+        "size": {
+            "description": "The maximum size of the world, for the camera. If omited, the current size of the world will be used when rendered",
+            "type": "object",
+            "properties": {
+                "x": {
+                    "type": "integer"
+                },
+                "y": {
+                    "type": "integer"
+                },
+                "z": {
+                    "type": "integer"
+                }
+            },
+            "required": ["x", "y", "z"]
+        },
+        "update": {
+            "description": "The array containing all tick events",
+            "type": "array",
+            "items": {
+                "description": "An event that happens on a tick, or every tick in a range",
+                "type": "object",
+                "properties": {
+                    "tick": {
+                        "description": "Tick number to execute this action on",
+                        "type": "integer"
+                    },
+                    "tickStart": {
+                        "description": "The first tick to exectute this action on. If -1, runs until tickEnd",
+                        "type": "integer"
+                    },
+                    "tickEnd": {
+                        "description": "The last tick to execute this action on. If -1, run after tickEnd without an end",
+                        "type": "integer"
+                    }
+                },
+                "oneOf": [
+                    { "required": ["tick"] },
+                    { "required": ["tickStart", "tickEnd"] }
+                ]
+            }
+        }
+    },
+    "required": ["owner", "seeAlso", "chapters"]
+}
