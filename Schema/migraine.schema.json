@@ -487,7 +487,7 @@
                             "type": "boolean"
                         }
                     },
-                    "required": ["type", "position", "ticksFor", "lines", "orientation"],
+                    "required": ["type", "position", "ticksFor", "lines", "orientation"]
                 },
                 {
                     "anyOf": [
