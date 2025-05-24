@@ -413,109 +413,131 @@
         "display": {
             "description": "Display text and itemStacks, at specified screen positions (from the center), for specified times",
             "type": "object",
-            "properties": {
-                "type": {
-                    "const": "display"
-                },
-                "position": {
-                    "description": "The position to show the display. If orientation is not CENTER, this will be at the point of the arrow. This is calculated from the center of the screen",
-                    "$ref": "#/definitions/position2D"
-                },
-                "ticksFor": {
-                    "description": "The number of ticks to display this for",
-                    "type": "integer"
-                },
-                "lines": {
-                    "description": "The lines of the display. First array is each line, second arrays are the elements on the array (text or itemStack)",
-                    "type": "array",
-                    "items": {
-                        "description": "The elements of the line",
-                        "type": "array",
-                        "items": {
-                            "oneOf": [
-                                {
-                                    "type": "object",
-                                    "allOf": [
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "display"
+                        },
+                        "position": {
+                            "description": "The position to show the display. If orientation is not CENTER, this will be at the point of the arrow. This is calculated from the center of the screen",
+                            "$ref": "#/definitions/position2D"
+                        },
+                        "ticksFor": {
+                            "description": "The number of ticks to display this for",
+                            "type": "integer"
+                        },
+                        "lines": {
+                            "description": "The lines of the display. First array is each line, second arrays are the elements on the array (text or itemStack)",
+                            "type": "array",
+                            "items": {
+                                "description": "The elements of the line",
+                                "type": "array",
+                                "items": {
+                                    "oneOf": [
                                         {
                                             "type": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "const": "itemStack"
+                                            "allOf": [
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "type": {
+                                                            "const": "itemStack"
+                                                        }
+                                                    },
+                                                    "required": ["type"]
+                                                },
+                                                {
+                                                    "$ref": "#/definitions/item"
                                                 }
-                                            },
-                                            "required": ["type"]
+                                            ]
                                         },
-                                        {
-                                            "$ref": "#/definitions/item"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "type": "object",
-                                    "allOf": [
                                         {
                                             "type": "object",
-                                            "properties": {
-                                                "type": {
-                                                    "const": "string"
+                                            "allOf": [
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "type": {
+                                                            "const": "string"
+                                                        }
+                                                    },
+                                                    "required": ["type"]
+                                                },
+                                                {
+                                                    "$ref": "#/definitions/localizedString"
                                                 }
-                                            },
-                                            "required": ["type"]
-                                        },
-                                        {
-                                            "$ref": "#/definitions/localizedString"
+                                            ]
                                         }
                                     ]
                                 }
-                            ]
+                            }
+                        },
+                        "autowrap": {
+                            "description": "A length to autowrap text to the next line. If there are itemStacks, it should be 0, otherwise, 200 is a good value. If omitted, defaults to 0",
+                            "type": "integer"
+                        },
+                        "orientation": {
+                            "description": "Which side of the display the arrow comes from. If CENTER, there will be no arrow",
+                            "enum": ["TOP", "BOTTOM", "LEFT", "RIGHT", "CENTER"]
+                        },
+                        "arrowInverted": {
+                            "description": "If false or omitted, the arrow will point away from the display. If true, the arrow will point towards the display",
+                            "type": "boolean"
                         }
-                    }
-                },
-                "autowrap": {
-                    "description": "A length to autowrap text to the next line. If there are itemStacks, it should be 0, otherwise, 200 is a good value. If omitted, defaults to 0",
-                    "type": "integer"
-                },
-                "orientation": {
-                    "description": "Which side of the display the arrow comes from. If CENTER, there will be no arrow",
-                    "enum": ["TOP", "BOTTOM", "LEFT", "RIGHT", "CENTER"]
-                },
-                "arrowInverted": {
-                    "description": "If false or omitted, the arrow will point away from the display. If true, the arrow will point towards the display",
-                    "type": "boolean"
-                }
-            },
-            "required": ["type", "position", "ticksFor", "lines", "orientation"],
-            "anyOf": [
-                {
-                    "type": "object",
-                    "required": ["colors"],
-                    "properties": {
-                        "colors": {
-                            "description": "A color from the default color sets. Defaults to GREY if this and the custom color options are omitted",
-                            "enum": ["COPPER", "GOLD", "BLUE", "GREY"]
-                        }
-                    }
+                    },
+                    "required": ["type", "position", "ticksFor", "lines", "orientation"],
                 },
                 {
-                    "type": "object",
-                    "properties": {
-                        "backgroundColor": {
-                            "description": "The color behind the text, in a hex string (0xAARRGGBB)",
-                            "type": "string"
+                    "oneOf": [
+                        {
+                            "type": "object",
+                            "required": ["colors"],
+                            "properties": {
+                                "colors": {
+                                    "description": "A color from the default color sets. Defaults to GREY if this and the custom color options are omitted",
+                                    "enum": ["COPPER", "GOLD", "BLUE", "GREY"]
+                                },
+                                "backgroundColor": false,
+                                "frameColor": false,
+                                "darkerColor": false,
+                                "lighterColor": false
+                            }
                         },
-                        "frameColor": {
-                            "description": "The middle color of the frame, in a hex string (0xAARRGGBB)",
-                            "type": "string"
+                        {
+                            "type": "object",
+                            "required": ["backgroundColor", "frameColor", "darkerColor", "lighterColor"],
+                            "properties": {
+                                "backgroundColor": {
+                                    "description": "The color behind the text, in a hex string (0xAARRGGBB)",
+                                    "type": "string"
+                                },
+                                "frameColor": {
+                                    "description": "The middle color of the frame, in a hex string (0xAARRGGBB)",
+                                    "type": "string"
+                                },
+                                "darkerColor": {
+                                    "description": "The darker frame color, in a hex string (0xAARRGGBB)",
+                                    "type": "string"
+                                },
+                                "lighterColor": {
+                                    "description": "The lighter frame color, in a hex string (0xAARRGGBB)",
+                                    "type": "string"
+                                },
+                                "colors": false
+                            }
                         },
-                        "darkerColor": {
-                            "description": "The darker frame color, in a hex string (0xAARRGGBB)",
-                            "type": "string"
-                        },
-                        "lighterColor": {
-                            "description": "The lighter frame color, in a hex string (0xAARRGGBB)",
-                            "type": "string"
+                        {
+                            "type": "object",
+                            "not": {
+                                "anyOf": [
+                                    { "required": ["colors"] },
+                                    { "required": ["backgroundColor"] }
+                                ]
+                            }
                         }
-                    }
+                    ]
                 }
             ]
         },
