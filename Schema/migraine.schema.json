@@ -490,24 +490,18 @@
                     "required": ["type", "position", "ticksFor", "lines", "orientation"],
                 },
                 {
-                    "oneOf": [
+                    "anyOf": [
                         {
                             "type": "object",
-                            "required": ["colors"],
                             "properties": {
                                 "colors": {
                                     "description": "A color from the default color sets. Defaults to GREY if this and the custom color options are omitted",
                                     "enum": ["COPPER", "GOLD", "BLUE", "GREY"]
-                                },
-                                "backgroundColor": false,
-                                "frameColor": false,
-                                "darkerColor": false,
-                                "lighterColor": false
+                                }
                             }
                         },
                         {
                             "type": "object",
-                            "required": ["backgroundColor", "frameColor", "darkerColor", "lighterColor"],
                             "properties": {
                                 "backgroundColor": {
                                     "description": "The color behind the text, in a hex string (0xAARRGGBB)",
@@ -524,17 +518,7 @@
                                 "lighterColor": {
                                     "description": "The lighter frame color, in a hex string (0xAARRGGBB)",
                                     "type": "string"
-                                },
-                                "colors": false
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "not": {
-                                "anyOf": [
-                                    { "required": ["colors"] },
-                                    { "required": ["backgroundColor"] }
-                                ]
+                                }
                             }
                         }
                     ]
