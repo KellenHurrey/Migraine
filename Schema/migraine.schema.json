@@ -502,7 +502,6 @@
                 },
                 {
                     "type": "object",
-                    "required": ["backgroundColor", "frameColor", "darkerColor", "lighterColor"],
                     "properties": {
                         "backgroundColor": {
                             "description": "The color behind the text, in a hex string (0xAARRGGBB)",
@@ -524,13 +523,7 @@
                     }
                 },
                 {
-                    "type": "object",
-                    "not": {
-                        "anyOf": [
-                            { "required": ["colors"] },
-                            { "required": ["backgroundColor"] }
-                        ]
-                    }
+                    "type": "object"
                 }
             ]
         },
